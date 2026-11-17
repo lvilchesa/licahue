@@ -24,7 +24,7 @@
   --ancho-max:     1140px;
   --gutter:        20px;
   --alto-logo:     57px;
-  --alto-cabecera: 110px;   /* logo 57px + 26px de relleno arriba y abajo */
+  --alto-cabecera: 154px;   /* barra de WhatsApp 44px + logo 57px + 26px de relleno arriba y abajo */
 }
 
 /* --------------------------------------------------------------- base --- */
@@ -158,6 +158,92 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--blanco);
 }
 
+/* --- barra de reservas por WhatsApp, arriba del encabezado --- */
+.barra-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px var(--gutter);
+  background: #25d366;
+  color: #0b3d20;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background .3s;
+}
+.barra-wa:hover,
+.barra-wa:focus-visible { background: #1fbd5a; }
+.barra-wa .icono { width: 20px; height: 20px; flex: none; }
+.barra-wa__texto strong { font-weight: 700; }
+.barra-wa__accion {
+  margin-left: 6px;
+  padding: 5px 12px;
+  background: #0b3d20;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* --- botón flotante de WhatsApp --- */
+.wa-flotante {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 14px 16px;
+  background: #25d366;
+  color: #0b3d20;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .28);
+  animation: wa-latido 2.4s ease-out 1.5s 3;
+}
+.wa-flotante .icono { width: 26px; height: 26px; flex: none; }
+.wa-flotante:hover,
+.wa-flotante:focus-visible { background: #1fbd5a; }
+html.visor-abierto .wa-flotante { display: none; }
+
+@keyframes wa-latido {
+  0%   { box-shadow: 0 6px 20px rgba(0, 0, 0, .28), 0 0 0 0 rgba(37, 211, 102, .6); }
+  70%  { box-shadow: 0 6px 20px rgba(0, 0, 0, .28), 0 0 0 18px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 6px 20px rgba(0, 0, 0, .28), 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* --- cartel de reservas al inicio de Contacto --- */
+.cartel-wa {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 18px 0 8px;
+  padding: 22px 26px;
+  background: #25d366;
+  color: #0b3d20;
+  text-decoration: none;
+  transition: background .3s;
+}
+.cartel-wa:hover,
+.cartel-wa:focus-visible { background: #1fbd5a; }
+.cartel-wa__icono .icono { width: 44px; height: 44px; display: block; }
+.cartel-wa__cuerpo { flex: 1; min-width: 0; }
+.cartel-wa__cuerpo strong { display: block; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.25; }
+.cartel-wa__cuerpo span { display: block; margin-top: 4px; font-size: 15px; }
+.cartel-wa__accion {
+  padding: 12px 22px;
+  background: #0b3d20;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
 .cabecera__interior {
   display: flex;
   align-items: center;
@@ -268,6 +354,13 @@ h1, h2, h3, h4, h5, h6 {
   padding-block: 80px;
 }
 
+/* Lo mismo para los destinos que no son secciones: la galería y cada
+   alojamiento, a los que apuntan el menú y los botones «+ Detalles». */
+.galeria,
+.alojamiento {
+  scroll-margin-top: var(--alto-cabecera);
+}
+
 .seccion:nth-of-type(even) { background: var(--gris-suave); }
 
 .seccion__titulo {
@@ -303,7 +396,7 @@ h1, h2, h3, h4, h5, h6 {
   max-height: 760px;
   padding-block: 90px;
   background-color: var(--negro-800);
-  background-image: url("../img/portada-azaleas.jpg");
+  background-image: url("../img/galeria/casona-de-noche.jpg");
   background-size: cover;
   background-position: center 60%;
   text-align: center;
@@ -355,6 +448,26 @@ h1, h2, h3, h4, h5, h6 {
   gap: 14px;
   margin-top: 12px;
 }
+
+/* Aviso bajo los botones: las reservas se cierran por WhatsApp (pedido del hotel, 17-11-2026) */
+.portada__aviso {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 10px 18px;
+  background: rgba(11, 61, 32, .82);
+  border: 1px solid #25d366;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blanco);
+}
+.portada__aviso .icono { width: 20px; height: 20px; color: #25d366; flex: none; }
+
+.boton--grande { font-size: 17px; padding: 18px 30px; }
+.boton--grande .icono { width: 20px; height: 20px; }
+.boton--ancho { width: 100%; justify-content: center; margin-bottom: 10px; }
 
 /* --- bloque «Conózcanos» --- */
 
@@ -431,25 +544,30 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-/* --- oferta destacada --- */
+/* --- ofertas destacadas (una o varias, apiladas) --- */
+
+.ofertas {
+  display: grid;
+  gap: 28px;
+  margin-bottom: 44px;
+}
+
+.ofertas[hidden] { display: none; }
 
 .oferta {
   background: var(--negro-800);
   color: var(--blanco);
   border-top: 3px solid var(--dorado);
   padding: 34px 32px;
-  margin-bottom: 44px;
   display: grid;
   gap: 24px;
 }
 
-.oferta[hidden] { display: none; }
-
 .oferta__cabecera {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 16px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 6px;
 }
 
 .oferta__etiqueta {
@@ -473,15 +591,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .oferta__bajada {
   font-size: 15px;
+  font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .75);
+  color: var(--blanco);
   margin: 0;
 }
 
+/* Una columna por valor, sean 3 o 4: cada oferta trae su propia cantidad. */
 .oferta__valores {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 2px;
   background: rgba(255, 255, 255, .12);
   border: 1px solid rgba(255, 255, 255, .12);
@@ -492,6 +613,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 18px 16px;
   display: grid;
   align-content: start;
+  justify-items: center;
+  text-align: center;
   gap: 3px;
 }
 
@@ -515,18 +638,49 @@ h1, h2, h3, h4, h5, h6 {
   margin: 6px 0 0;
 }
 
+/* Precio rebajado (17-11-2026, pedido de Ernesto: «el valor real y en rojo la oferta»).
+   El rojo va de FONDO con números blancos, no como letra roja sobre negro, que se
+   lee mal: blanco sobre #c62828 da 5,6:1 de contraste. El valor normal va SIN
+   tachar (pedido de Ernesto), en gris claro (7:1 sobre el negro del panel). */
+.oferta__normal {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .72);
+}
+.oferta__normal span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blanco);
+}
+
+.oferta__total--rebaja {
+  margin-top: 6px;
+  padding: 4px 14px;
+  background: #c62828;
+  color: var(--blanco);
+  font-weight: 700;
+  border-radius: 3px;
+}
+
 .oferta__pie {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 16px 24px;
 }
 
+/* Condiciones de la oferta: recuadro con borde dorado y texto blanco, para que se lea */
 .oferta__nota {
+  flex: 1 1 360px;
   margin: 0;
-  font-size: 14px;
-  color: rgba(255, 255, 255, .65);
+  padding: 14px 18px;
+  background: rgba(226, 194, 117, .12);
+  border-left: 4px solid var(--dorado);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--blanco);
 }
 
 /* botón de WhatsApp, verde propio de la marca */
@@ -541,6 +695,39 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
   color: #25d366;
   border-color: #25d366;
+}
+
+/* --- franja «Reservas por WhatsApp», sobre las ofertas --- */
+
+.reserva-wa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  margin: 0 0 32px;
+  padding: 22px 26px;
+  background: #e9f9ef;
+  border: 1px solid #b8ebc9;
+  border-left: 5px solid #25d366;
+}
+
+.reserva-wa__texto { margin: 0; flex: 1 1 320px; }
+.reserva-wa__texto strong { display: block; font-size: 18px; color: #0b3d20; }
+.reserva-wa__texto span { display: block; margin-top: 4px; font-size: 15px; color: var(--tinta); }
+.reserva-wa__texto a { color: var(--tinta); font-weight: 600; white-space: nowrap; }
+
+/* botón secundario de llamada, en el bloque de contacto */
+.boton--llamar {
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--gris-borde);
+}
+.boton--llamar:hover,
+.boton--llamar:focus-visible {
+  background: transparent;
+  color: var(--terracota);
+  border-color: var(--terracota);
 }
 
 /* --- las tres tarjetas --- */
@@ -561,10 +748,22 @@ h1, h2, h3, h4, h5, h6 {
   padding: 32px 28px;
 }
 
+/* La foto sale a los bordes de la tarjeta, salteando el relleno lateral */
+.tarjeta__figura {
+  margin: -32px -28px 22px;
+}
+
+.tarjeta__figura img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
 .tarjeta__nombre {
   font-size: 21px;
   font-weight: 600;
   margin-bottom: 4px;
+  text-align: center;
 }
 
 .tarjeta__capacidad {
@@ -573,6 +772,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   color: var(--terracota);
   margin: 0 0 18px;
+  text-align: center;
 }
 
 .tarjeta__texto {
@@ -616,7 +816,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .precios caption {
   caption-side: top;
-  text-align: left;
+  text-align: center;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: .12em;
@@ -641,6 +841,8 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gris);
 }
 
+/* Desde el 16-11-2026 vuelven las dos columnas (enero y febrero): la etiqueta
+   a la izquierda y los precios a la derecha, alineados por cifra. */
 .precios th:first-child,
 .precios td:first-child {
   text-align: left;
@@ -1164,6 +1366,17 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+.galeria__instagram {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--tinta);
+}
+.galeria__instagram a {
+  color: var(--terracota);
+  font-weight: 600;
+}
+
 .galeria__rejilla a {
   display: block;
   overflow: hidden;
@@ -1181,6 +1394,10 @@ h1, h2, h3, h4, h5, h6 {
 .galeria__rejilla a:focus-visible img {
   transform: scale(1.04);
   opacity: .92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-flotante { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1350,15 +1567,16 @@ html.visor-abierto { overflow: hidden; }
 }
 
 /* Columna izquierda: los datos y, debajo, los botones de contacto directo.
-   Los botones viven acá y no en el panel del formulario para que las dos
-   columnas tengan un alto parecido; si no, la derecha queda el doble de larga. */
+   A la derecha va el mapa, que se estira al alto de esta columna. El panel del
+   formulario sigue en el HTML, pero con el atributo hidden (17-11-2026). */
 .contacto__columna {
   display: grid;
   gap: 32px;
-  /* Las dos primeras filas ocupan lo suyo y el mapa se estira con lo que sobre,
-     para que esta columna termine a la misma altura que el formulario. */
-  grid-template-rows: auto auto 1fr;
+  align-content: start;
 }
+
+/* La reserva por WhatsApp está en el cartel de arriba; aquí solo queda «Llamar» */
+.contacto__acciones .boton { justify-content: center; }
 
 .datos {
   display: grid;
@@ -1771,11 +1989,10 @@ html.visor-abierto { overflow: hidden; }
   .testimonios__lista { grid-template-columns: 1fr; }
   .galeria__rejilla { grid-template-columns: repeat(2, 1fr); }
   .oferta { padding: 26px 22px; }
-  .oferta__valores { grid-template-columns: 1fr 1fr; }
+  .oferta__valores { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
   .lugares { grid-template-columns: 1fr; gap: 20px; }
   /* Apilado ya no hay nada con que emparejarse: el mapa vuelve a alto fijo. */
   .contacto { grid-template-columns: 1fr; gap: 32px; align-items: start; }
-  .contacto__columna { grid-template-rows: none; }
   .contacto__mapa { height: auto; }
   .contacto__mapa iframe { height: 300px; min-height: 0; }
 
@@ -1785,6 +2002,17 @@ html.visor-abierto { overflow: hidden; }
 
 @media (max-width: 560px) {
   :root { --alto-logo: 44px; }
+
+  .barra-wa { font-size: 14px; gap: 8px; }
+  .barra-wa__extra { display: none; }
+  .barra-wa__texto { white-space: nowrap; }
+  .barra-wa__accion { font-size: 13px; padding: 5px 10px; }
+  .wa-flotante { right: 14px; bottom: 14px; padding: 14px; }
+  .wa-flotante__texto { display: none; }
+  .wa-flotante .icono { width: 30px; height: 30px; }
+  .cartel-wa { flex-wrap: wrap; gap: 14px; padding: 20px; }
+  .cartel-wa__accion { width: 100%; text-align: center; }
+  .portada__aviso { font-size: 15px; border-radius: 12px; text-align: left; }
 
   .marca {
     flex-direction: column;
@@ -1810,7 +2038,7 @@ html.visor-abierto { overflow: hidden; }
   .extra__figura { min-height: 180px; }
 
   .ofrece ul { grid-template-columns: 1fr; }
-  .oferta__valores { grid-template-columns: 1fr; }
+  .oferta__valores { grid-auto-flow: row; grid-template-columns: 1fr; }
   .oferta__pie .boton { width: 100%; justify-content: center; }
   .dato { grid-template-columns: 1fr; gap: 10px; }
   .escribenos { padding: 26px 22px; }
